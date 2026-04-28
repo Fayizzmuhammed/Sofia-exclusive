@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofia's Exclusive Content</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose: #f43f7a;
+    --rose-dark: #c41f5a;
+    --rose-light: #fde8f0;
+    --gold: #d4a054;
+    --gold-light: #fdf3e3;
+    --dark: #0f0a0d;
+    --dark2: #1a1018;
+    --dark3: #251820;
+    --text: #f5eef2;
+    --muted: #a08898;
+    --border: rgba(244,63,122,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 80% 10%, rgba(244,63,122,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(212,160,84,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(244,63,122,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(15,10,13,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--rose);
+    letter-spacing: 0.02em;
+  }
+  .logo span { color: var(--gold); font-style: italic; }
+  .nav-cta {
+    background: var(--rose);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.3rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--rose-dark); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 5rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(244,63,122,0.12);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+    color: var(--rose);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color: white;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(244,63,122,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(244,63,122,0.45); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--rose); background: rgba(244,63,122,0.06); }
+
+  /* AVATAR */
+  .avatar-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+  }
+  .avatar-ring {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    box-shadow: 0 0 40px rgba(244,63,122,0.3);
+  }
+  .avatar-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--dark3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--rose);
+    font-style: italic;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    border: 2px dashed rgba(244,63,122,0.4);
+    transition: border-color 0.2s;
+  }
+  .avatar-inner:hover { border-color: var(--rose); }
+  .avatar-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: none;
+    position: absolute; inset: 0;
+  }
+  .avatar-inner.has-image img { display: block; }
+  .avatar-inner.has-image .avatar-placeholder { display: none; }
+  .avatar-placeholder { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .avatar-upload-hint {
+    font-size: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  #avatarInput { display: none; }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem 0;
+    margin-bottom: 5rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--rose);
+    font-weight: 700;
+    display: block;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+
+  /* WHAT YOU GET */
+  .section { margin-bottom: 5rem; }
+  .section-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+  .section-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.6; max-width: 560px; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  .feature-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(244,63,122,0.5); transform: translateY(-3px); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .feature-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .feature-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* PRICING */
+  .pricing-card {
+    max-width: 440px;
+    margin: 2.5rem auto 0;
+    background: var(--dark2);
+    border: 1px solid rgba(244,63,122,0.35);
+    border-radius: 24px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(244,63,122,0.1);
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(244,63,122,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .pricing-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .price-main sup { font-size: 1.5rem; vertical-align: top; margin-top: 0.5rem; color: var(--rose); font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .price-alt {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .price-note { font-size: 0.78rem; color: var(--muted); margin-bottom: 2rem; }
+  .price-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.5rem 0;
+  }
+  .price-includes { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-includes li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .price-includes li::before {
+    content: '';
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(244,63,122,0.15);
+    border: 1px solid var(--rose);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8' fill='none'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='%23f43f7a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px;
+  }
+  .btn-buy {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(244,63,122,0.4);
+    text-decoration: none;
+    margin-bottom: 1rem;
+  }
+  .btn-buy:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(244,63,122,0.5); }
+  .secure-note { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+  /* TESTIMONIALS */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  .review-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  .review-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; font-style: italic; }
+  .reviewer { font-size: 0.8rem; color: var(--text); font-weight: 500; }
+
+  /* FAQ */
+  .faq-list { margin-top: 2rem; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 0;
+    cursor: pointer;
+  }
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .faq-q span { font-size: 1.1rem; color: var(--rose); transition: transform 0.2s; }
+  .faq-a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 0.8rem; }
+  .faq-item.open .faq-q span { transform: rotate(45deg); }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    padding: 5rem 0;
+    position: relative;
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 1rem;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--rose); }
+  .cta-section p { color: var(--muted); margin-bottom: 2rem; font-size: 1rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  footer strong { color: var(--rose); font-family: 'Playfair Display', serif; font-style: italic; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,6,9,0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    backdrop-filter: blur(6px);
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--dark2);
+    border: 1px solid rgba(244,63,122,0.4);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+    text-align: center;
+  }
+  .modal-overlay.show .modal { transform: translateY(0); }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .modal p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.5; }
+  .modal-input {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .modal-input:focus { border-color: var(--rose); }
+  .modal-input::placeholder { color: var(--muted); }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    line-height: 1;
+  }
+  .modal { position: relative; }
+
+  /* TEASER GALLERY - 2 BIG BLUR BOXES */
+  .teaser-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  .teaser-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+  }
+  .teaser-img {
+    width: 100%; height: 100%;
+    filter: blur(22px) brightness(0.55) saturate(1.6);
+    transform: scale(1.15);
+    transition: filter 0.4s;
+  }
+  .teaser-card:hover .teaser-img { filter: blur(28px) brightness(0.4) saturate(1.8); }
+  /* GLASSMORPHISM OVERLAY */
+  .teaser-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .glass-pill {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .lock-icon { font-size: 2.2rem; display: block; margin-bottom: 0.5rem; }
+  .unlock-label {
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color: white;
+    padding: 0.55rem 1.3rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(244,63,122,0.5);
+    white-space: nowrap;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .teaser-card-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+  /* GLASSMORPHISM ON FEATURE CARDS */
+  .feature-card {
+    background: rgba(255,255,255,0.04) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  /* APPLE SCROLL ANIMATION */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
+  .scroll-reveal:nth-child(3) { transition-delay: 0.18s; }
+  .scroll-reveal:nth-child(4) { transition-delay: 0.26s; }
+  .scroll-reveal:nth-child(5) { transition-delay: 0.34s; }
+  .scroll-reveal:nth-child(6) { transition-delay: 0.42s; }
+
+  @media (max-width: 600px) {
+    .teaser-grid { grid-template-columns: 1fr; }
+    .hero { padding: 4rem 0 3rem; }
+    .stats { gap: 1.5rem; }
+    .pricing-card { padding: 2rem 1.5rem; }
+  }
+    .hero { padding: 4rem 0 3rem; }
+    .stats { gap: 1.5rem; }
+    .pricing-card { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">Sofia's <span>Exclusive</span></div>
+    <a href="#pricing" class="nav-cta">Get Access — ₹399</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="avatar-section" onclick="document.getElementById('avatarInput').click()" title="Click to upload photo" style="cursor:pointer;">
+      <div class="avatar-ring">
+        <div class="avatar-inner" id="avatarBox">
+          <img id="avatarImg" src="" alt="Sofia">
+          <div class="avatar-placeholder">
+            <span>📷</span>
+            <span class="avatar-upload-hint">Add Photo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="avatarInput" accept="image/*">
+    <div class="hero-badge">Private Members Only</div>
+    <h1>Exclusive Content<br>by <em>Sofia</em></h1>
+    <p class="hero-sub">Unlock my most intimate, exclusive, and premium content. One-time payment. Instant access. Completely private.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">🔥 Unlock Now — ₹399</a>
+      <a href="#what" class="btn-secondary">See What's Inside</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Happy Members</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Exclusive Content</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">Instant Access</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">🔒</span>
+      <span class="stat-label">Fully Private</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<section class="section" id="what">
+  <div class="container">
+    <div class="section-tag">What's Inside</div>
+    <h2 class="section-title">Everything You Get<br>with Access</h2>
+    <p class="section-sub">Premium, never-before-seen content curated especially for my members. No one else sees this.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📸</span>
+        <div class="feature-title">Exclusive Photos</div>
+        <div class="feature-desc">Hundreds of private photos you won't find anywhere else. Updated regularly.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎬</span>
+        <div class="feature-title">Hot Videos</div>
+        <div class="feature-desc">Full-length exclusive videos, behind-the-scenes and personal content.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💌</span>
+        <div class="feature-title">Personal Messages</div>
+        <div class="feature-desc">Direct, personal messages only my members receive. Intimate and real.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Instant Delivery</div>
+        <div class="feature-desc">Access granted immediately after payment. No waiting, no delays.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔄</span>
+        <div class="feature-title">Regular Updates</div>
+        <div class="feature-desc">New content added frequently. Always something fresh waiting for you.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🛡️</span>
+        <div class="feature-title">100% Private</div>
+        <div class="feature-desc">Your identity and purchase are completely confidential and secure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEASER GALLERY -->
+<section class="section" id="preview">
+  <div class="container">
+    <div class="section-tag scroll-reveal">Sneak Peek</div>
+    <h2 class="section-title scroll-reveal">What's Waiting<br>Inside 🔥</h2>
+    <p class="section-sub scroll-reveal">Unlock to see everything. Here's just a tiny glimpse...</p>
+    <div class="teaser-grid">
+      <div class="teaser-card scroll-reveal">
+        <div class="teaser-img" style="background: linear-gradient(145deg, #1a0510 0%, #5a1535 30%, #c44a7a 65%, #e8809a 100%);"></div>
+        <div class="teaser-overlay">
+          <div class="glass-pill">
+            <span class="lock-icon">🔒</span>
+            <div style="font-size:1rem; font-weight:500; color:white; margin-bottom:8px;">Exclusive Photos</div>
+            <div class="teaser-card-label">100+ private shots</div>
+            <div class="unlock-label">Unlock for ₹399</div>
+          </div>
+        </div>
+      </div>
+      <div class="teaser-card scroll-reveal">
+        <div class="teaser-img" style="background: linear-gradient(160deg, #0f0a1a 0%, #3a1050 35%, #a03070 65%, #d4608a 100%);"></div>
+        <div class="teaser-overlay">
+          <div class="glass-pill">
+            <span class="lock-icon">🎬</span>
+            <div style="font-size:1rem; font-weight:500; color:white; margin-bottom:8px;">Hot Videos</div>
+            <div class="teaser-card-label">Full-length exclusive</div>
+            <div class="unlock-label">Unlock for ₹399</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;" class="scroll-reveal">
+      <a href="#pricing" class="btn-primary">🔓 Unlock Everything — ₹399</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">One Price. Full Access.</h2>
+      <p class="section-sub" style="margin:0 auto;">No subscriptions, no hidden fees. Pay once, enjoy everything.</p>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-badge">🔥 Most Popular</div>
+      <div class="price-main"><sup>₹</sup>399</div>
+      <div class="price-alt">or just $4 USD</div>
+      <div class="price-note">One-time payment · Lifetime access</div>
+      <div class="price-divider"></div>
+      <ul class="price-includes">
+        <li>All exclusive photos & videos</li>
+        <li>Personal messages from Sofia</li>
+        <li>Access to all future content drops</li>
+        <li>Private member-only community</li>
+        <li>Discreet & secure billing</li>
+        <li>Instant access after payment</li>
+      </ul>
+      <a href="#" class="btn-buy" onclick="openModal(); return false;">🔓 Unlock Full Access — ₹399</a>
+      <div class="secure-note">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="6" width="10" height="8" rx="2" stroke="#a08898" stroke-width="1.2"/>
+          <path d="M4 6V4a2 2 0 1 1 4 0v2" stroke="#a08898" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Secure payment · Private billing · No recurring charges
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-tag">Members Say</div>
+    <h2 class="section-title">Real Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Worth every rupee. The content is absolutely fire and delivery was instant. Sofia is stunning!"</div>
+        <div class="reviewer">— Raj K.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"I was hesitant at first but this exceeded all my expectations. So much exclusive stuff. 100% legit."</div>
+        <div class="reviewer">— Arjun M.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Best ₹399 I've ever spent. The content quality is insane and she keeps adding more. Highly recommend."</div>
+        <div class="reviewer">— Vikram S.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How do I access content after payment? <span>+</span></div>
+        <div class="faq-a">Immediately after your payment is confirmed, you'll receive a link to access all exclusive content. The entire process is instant and automated.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is my purchase private? <span>+</span></div>
+        <div class="faq-a">Absolutely. Your purchase and identity are completely confidential. Billing is discreet and your information is never shared with anyone.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is this a one-time payment or subscription? <span>+</span></div>
+        <div class="faq-a">This is a one-time payment of ₹399 ($4 USD). There are no recurring charges, no subscriptions. You pay once and get lifetime access.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What payment methods are accepted? <span>+</span></div>
+        <div class="faq-a">We accept UPI, cards (Visa/Mastercard), and all major Indian payment methods. International payments via card are also accepted.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Will there be new content added? <span>+</span></div>
+        <div class="faq-a">Yes! Sofia regularly adds new exclusive content. Your one-time purchase gives you access to all future updates as well.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to See<br><em>Everything?</em></h2>
+    <p>Join 500+ members already enjoying exclusive access. Only ₹399.</p>
+    <a href="#" class="btn-primary" style="font-size:1.1rem; padding:1rem 2.8rem;" onclick="openModal(); return false;">🔥 Get Access Now</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2025 <strong>Sofia's Exclusive</strong> · All content is original and copyrighted · For adults 18+ only</p>
+    <p style="margin-top:0.5rem;">For support: contact via DM · All purchases are final</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>🔓 Get Access</h3>
+    <p>Enter your details below to complete your purchase and unlock all of Sofia's exclusive content instantly.</p>
+    <input type="text" class="modal-input" placeholder="Your name">
+    <input type="email" class="modal-input" placeholder="Your email address">
+    <input type="tel" class="modal-input" placeholder="WhatsApp / Phone (optional)">
+    <a href="#" class="btn-buy" style="margin-top:0.5rem; display:block; text-decoration:none;" onclick="handleBuy(event)">Pay ₹399 — Instant Access</a>
+    <p style="font-size:0.75rem; color:var(--muted); margin-top:0.5rem;">🔒 Secure & private. No subscription.</p>
+  </div>
+</div>
+
+<script>
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+document.getElementById('avatarInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    document.getElementById('avatarImg').src = ev.target.result;
+    document.getElementById('avatarBox').classList.add('has-image');
+  };
+  reader.readAsDataURL(file);
+});
+
+// Apple-style scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+// Also apply to feature cards, stat, review cards
+document.querySelectorAll('.feature-card, .stat, .review-card, .pricing-card, .faq-item').forEach((el, i) => {
+  el.classList.add('scroll-reveal');
+  el.style.transitionDelay = (i * 0.07) + 's';
+  observer.observe(el);
+});
+
+function handleBuy(e) {
+  e.preventDefault();
+  // Replace this alert with your actual payment link (Razorpay, UPI, etc.)
+  alert('Redirecting to payment... \n\nAdd your payment link here (Razorpay / UPI / Instamojo).');
+}
+</script>
+</body>
+</html>
